@@ -1,9 +1,13 @@
 import React from "react";
 
-import { NavContainer } from "./styledComponents";
+import { NavContainer, LiSuButtons } from "./styledComponents";
 
 const Navbar = () => {
-  return <NavContainer />;
+  return (
+    <NavContainer>
+      <LiSuButtons>Login</LiSuButtons>
+    </NavContainer>
+  );
 };
 
 export default Navbar;
