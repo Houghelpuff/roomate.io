@@ -15,10 +15,13 @@ router.get("/user/:id", (req, res) => {
 router.post("/create", (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-  console.log(
-    UserController.createUser({ username: username, password: password })
-  );
-  res.send({ response: "User created!" });
+  let userCreationStatus = UserController.createUser({
+    username: username,
+    password: password,
+  });
+  if (userCreationStatus === "User already exists")
+    res.send(JSON.stringify("User already exists"));
+  else res.send(JSON.stringify("User created successfully!"));
 });
 
 export default router;

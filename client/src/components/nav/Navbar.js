@@ -9,6 +9,7 @@ const Navbar = () => {
   });
 
   const [formData, setFormData] = useState(initData);
+  const [successStatus, setSuccessStatus] = useState(1);
 
   const inputStyles = {
     outline: "1px solid black",
@@ -28,7 +29,9 @@ const Navbar = () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log("in navbar component: " + data);
+      });
   };
 
   const handleSubmit = (e) => {
@@ -37,35 +40,38 @@ const Navbar = () => {
   };
 
   return (
-    <form>
-      <label>
-        <strong>Username</strong>
-      </label>
-      <input
-        name="username"
-        type="text"
-        style={inputStyles}
-        onChange={handleChange}
-      />
+    <>
+      <div></div>
+      <form>
+        <label>
+          <strong>Username</strong>
+        </label>
+        <input
+          name="username"
+          type="text"
+          style={inputStyles}
+          onChange={handleChange}
+        />
 
-      <br />
+        <br />
 
-      <label>
-        <strong>Password</strong>
-      </label>
-      <input
-        name="password"
-        type="text"
-        style={inputStyles}
-        onChange={handleChange}
-      />
+        <label>
+          <strong>Password</strong>
+        </label>
+        <input
+          name="password"
+          type="text"
+          style={inputStyles}
+          onChange={handleChange}
+        />
 
-      <br />
+        <br />
 
-      <button type="submit" onClick={handleSubmit}>
-        Sign Up
-      </button>
-    </form>
+        <button type="submit" onClick={handleSubmit}>
+          Sign Up
+        </button>
+      </form>
+    </>
   );
 };
 

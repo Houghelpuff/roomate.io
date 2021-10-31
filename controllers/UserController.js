@@ -8,10 +8,21 @@ const UserController = {
     return User.findById(id).exec();
   },
   createUser(userData) {
-    console.log(userData);
-    return User.create(userData, (err, small) => {
-      if (err) console.log(`User create didn't work... ${err}`);
+    let userStatus;
+    User.countDocuments({ username: userData.username }, (err, count) => {
+      if (err) throw err;
+      if (count >= 1) userStatus = 0;
+      else {
+        User.create(userData, (err, small) => {
+          if (err) {
+            console.log(`User create didn't work... ${err}`);
+          } else {
+            userStatus = 1;
+          }
+        });
+      }
     });
+    return userStatus ? "User created successfully!" : "User already exists";
   },
 };
 
