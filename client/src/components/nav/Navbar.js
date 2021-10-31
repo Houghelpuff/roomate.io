@@ -1,12 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NavContainer, LiSuButtons } from "./styledComponents";
 
 const Navbar = () => {
+  const initData = Object.freeze({
+    username: "",
+    password: "",
+  });
+
+  const [formData, setFormData] = useState(initData);
+
+  const inputStyles = {
+    outline: "1px solid black",
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
+  const sendData = () => {
+    fetch("http://localhost:3500/api/user/create", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendData();
+  };
+
   return (
-    <NavContainer>
-      <LiSuButtons>Login</LiSuButtons>
-    </NavContainer>
+    <form>
+      <label>
+        <strong>Username</strong>
+      </label>
+      <input
+        name="username"
+        type="text"
+        style={inputStyles}
+        onChange={handleChange}
+      />
+
+      <br />
+
+      <label>
+        <strong>Password</strong>
+      </label>
+      <input
+        name="password"
+        type="text"
+        style={inputStyles}
+        onChange={handleChange}
+      />
+
+      <br />
+
+      <button type="submit" onClick={handleSubmit}>
+        Sign Up
+      </button>
+    </form>
   );
 };
 
