@@ -1,9 +1,23 @@
 import React from "react";
+import { BrowserRouter as Switch, Router, Route } from "react-router-dom";
 
-import Navbar from "./components/nav/Navbar.js";
+// import Navbar from "./components/nav/Navbar.js";
+import Home from "./components/test/Home.js";
 
 const App = () => {
-  return <Navbar />;
+  return (
+    <div>
+      <Router>
+        <div>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </div>
+  );
 };
 
 export default App;
